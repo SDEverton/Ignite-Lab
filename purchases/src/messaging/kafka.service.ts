@@ -1,26 +1,23 @@
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import { PubSub } from '@google-cloud/pubsub';
 import { ConfigService } from '@nestjs/config';
-import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
-export class KafkaService
-  extends ClientKafka
-  implements OnModuleInit, OnModuleDestroy
-{
+export class KafkaService implements OnModuleDestroy {
+  private client: PubSub;
   constructor(configService: ConfigService) {
-    super({
-      client: {
-        clientId: 'purchases',
-        brokers: [configService.get('KAFKA_BROKERS')],
-      },
+    this.client = new PubSub({
+      projectId: configService.get('GOOGLE_CLOUD_PROJECT'),
     });
   }
 
-  async onModuleInit() {
-    await this.connect();
+  async emit(topic: string, message: any): Promise<any> {
+    return this.client
+      .topic(topic)
+      .publish(Buffer.from(JSON.stringify(message)));
   }
 
   async onModuleDestroy() {
-    await this.close();
+    await this.client.close();
   }
 }

@@ -14,8 +14,11 @@
     "start:prod": "node dist/main"
   },
   "dependencies": {
+    "@algoan/nestjs-google-pubsub-microservice": "^3.0.2",
+    "@algoan/pubsub": "^4.6.3",
     "@apollo/federation": "^0.36.0",
     "@apollo/subgraph": "^0.4.0",
+    "@google-cloud/pubsub": "^2.19.0",
     "@nestjs/apollo": "^10.0.8",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.0",

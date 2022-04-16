@@ -41,7 +41,7 @@ export class PurchasesService {
       where: { id: customerId },
     });
 
-    this.kafka.emit('purchases.new-purchase', {
+    this.kafka.emit('ignite-lab', {
       customer: {
         authUserId: customer.authUserId,
       },

@@ -26,8 +26,11 @@ export class PurchaseController {
     private coursesService: CoursesService,
     private enrollmentsService: EnrollmentsService,
   ) {}
-  @EventPattern('purchases.new-purchase')
-  async purchaseCreated(@Payload('value') payload: PurchaseCreatedPayload) {
+
+  @EventPattern('ignite-lab')
+  public async purchaseCreated(
+    @Payload('payload') payload: PurchaseCreatedPayload,
+  ): Promise<void> {
     let student = await this.studentsService.getStudentByAuthUserId(
       payload.customer.authUserId,
     );

@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@apollo/federation": "^0.36.0",
+    "@google-cloud/pubsub": "^2.19.0",
     "@nestjs/apollo": "^10.0.8",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.0",
@@ -28,6 +29,8 @@
     "graphql": "15",
     "jwks-rsa": "^2.0.5",
     "kafkajs": "^1.16.0",
+    "nestjs-google-pubsub": "^0.1.2",
+    "nestjs-google-pubsub-microservice": "^2.2.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",

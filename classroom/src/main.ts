@@ -1,18 +1,16 @@
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { MicroserviceOptions } from '@nestjs/microservices';
+import { GCPubSubServer } from '@algoan/nestjs-google-pubsub-microservice';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.KAFKA,
-    options: {
-      client: {
-        clientId: 'classroom',
-        brokers: ['localhost:29092'],
-      },
-    },
+    strategy: new GCPubSubServer({
+      projectId: 'microservice-342322',
+      subscriptionsPrefix: 'ignite-lab-sub',
+    }),
   });
   app.startAllMicroservices().then(() => {
     console.log('[Classroom] Microservices started');
